@@ -1,0 +1,27 @@
+{% extends 'posts/post_base.html' %}
+
+{% load bootstrap4 %}
+
+
+{% block content %}
+<h1>Delete post?</h1>
+
+<div class="posts">
+    {% include 'posts/_post.html' with post=object hide_delete=True %}
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input
+        type="submit"
+        value="Submit"
+        class="btn btn-danger"
+    >
+</form>
+
+<a
+    href="{% url 'posts:single' username=user.username pk=object.pk %}"
+    class="btn btn-secondary"
+>Cancel</a>
+{% endblock content %}

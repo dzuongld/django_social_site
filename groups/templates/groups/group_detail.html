@@ -1,0 +1,54 @@
+{% extends 'groups/group_base.html' %}
+
+{% block pregroup %}
+<!-- lowercase of model -->
+<h1>{{group.name}}</h1>
+
+<h2> Member Count: {{ group.members.count}} </h2>
+
+<div class="content">
+
+    {% if user in group.members.all %}
+    <a
+        href="{% url 'groups:leave' slug=group.slug %}"
+        class="btn btn-lg btn-warning"
+    >Leave Group</a>
+
+    {% else %}
+
+    <a
+        href="{% url 'groups:join' slug=group.slug %}"
+        class="btn btn-lg btn-success"
+    >Join Group</a>
+
+    {% endif %}
+
+</div>
+{% endblock pregroup %}
+
+
+{% block group_content %}
+
+<div class="col-md-8">
+
+    {% if  %}
+
+    <h2>No posts in this group yet!</h2>
+
+    {% else %}
+
+
+    {% for post in group.posts.all %}
+
+    <!-- inject html directly instead of using blocks -->
+    <!-- _ is optional -->
+    {% include 'post/_post.html' %}
+
+    {% endfor %}
+
+
+    {% endif %}
+
+</div>
+
+{% endblock group_content %}
